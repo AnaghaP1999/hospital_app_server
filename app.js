@@ -16,12 +16,9 @@ app.get('/hospitals', (req, res) => {
 // POST a new hospital
 app.post('/hospitals', (req, res) => {
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
-
     const hospitals = JSON.parse(data);
     hospitals.push(req.body);
-
     fs.writeFile(dataFilePath, JSON.stringify(hospitals), 'utf8', (err) => {
-
       res.json(hospitals);
     });
   });
@@ -33,16 +30,11 @@ app.put('/hospitals/:id', (req, res) => {
   const updatedHospital = req.body;
 
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
-
     const hospitals = JSON.parse(data);
     const hospitalIndex = hospitals.findIndex(h => h.id === hospitalId);
-
-
     hospitals[hospitalIndex] = updatedHospital;
 
     fs.writeFile(dataFilePath, JSON.stringify(hospitals), 'utf8', (err) => {
-     
-
       res.json(updatedHospital);
     });
   });
@@ -53,16 +45,10 @@ app.delete('/hospitals/:id', (req, res) => {
   const hospitalId = req.params.id;
 
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
-
-
     const hospitals = JSON.parse(data);
     const updatedHospitals = hospitals.filter(h => h.id !== hospitalId);
 
-
-
     fs.writeFile(dataFilePath, JSON.stringify(updatedHospitals), 'utf8', (err) => {
-
-
       res.json({ message: 'Hospital deleted successfully' });
     });
   });
